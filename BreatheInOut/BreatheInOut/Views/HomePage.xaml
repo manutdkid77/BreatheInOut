@@ -4,12 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BreatheInOut.Views.HomePage">
+             x:Class="BreatheInOut.Views.HomePage"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             BackgroundColor="#7596D5">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="0,20">
+            <lottie:AnimationView 
+	            x:Name="animationView" 
+	            Animation="1741-breathing-in-and-out.json" 
+	            Loop="True"
+	            VerticalOptions="FillAndExpand"
+                Margin="50,0"
+                />
+            <Slider x:Name="progressSlider" ThumbColor="White" MaximumTrackColor="Aquamarine" DragCompleted="progressSlider_DragCompleted"></Slider>
+
+            <ImageButton x:Name="playButton" Source="play.png" WidthRequest="80" HeightRequest="80" BackgroundColor="Transparent" Clicked="playButton_Clicked"></ImageButton>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

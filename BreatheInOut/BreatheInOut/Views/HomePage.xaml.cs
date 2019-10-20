@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BreatheInOut.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,65 @@ namespace BreatheInOut.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+        bool timerRunning = false;
+        float animationProgress = 0.0f;
+
         public HomePage()
         {
             InitializeComponent();
+        }
+
+        private async void playButton_Clicked(object sender, EventArgs e)
+        {
+            playButton.IsVisible = false;
+
+            if (!animationView.IsPlaying)
+            {
+                playButton.Source = "pause.png";
+                timerRunning = true;
+                animationView.IsPlaying = true;
+                progressSlider.IsEnabled = true;
+                StartTimer();
+            }
+            else
+            {
+                playButton.Source = "play.png";
+                timerRunning = false;
+                animationView.IsPlaying = false;
+                progressSlider.IsEnabled = false;
+            }
+
+            await Task.Delay(1);
+            playButton.IsVisible = true;
+        }
+
+        private void StartTimer()
+        {
+            Device.StartTimer(TimeSpan.FromMilliseconds(1), () =>
+            {
+                if (!timerRunning)
+                    return false;
+
+                if (animationProgress >= 1f)
+                    animationProgress = 0.0f;
+
+                animationProgress += 0.003f;
+
+                animationView.Progress = animationProgress;
+                progressSlider.Value = animationProgress;
+
+
+                return timerRunning;
+            });
+        }
+
+        private void progressSlider_DragCompleted(object sender, EventArgs e)
+        {
+            if (!(sender is Slider slider))
+                return;
+
+            playButton_Clicked(sender, e);
+            animationProgress = (float)slider.Value;
         }
     }
 }
