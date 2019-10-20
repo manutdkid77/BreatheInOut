@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="BreatheInOut.Views.HomePage"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="#7596D5">
     <ContentPage.Content>
         <ScrollView>
