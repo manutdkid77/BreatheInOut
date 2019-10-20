@@ -19,25 +19,40 @@ namespace BreatheInOut.Views
 
         private async void playButton_Clicked(object sender, EventArgs e)
         {
+            if (!animationView.IsPlaying)
+                await PlayAnimationAsync();
+            else
+                await PauseAnimationAsync();
+        }
+
+        private async Task PlayAnimationAsync()
+        {
+            if (animationView.IsPlaying)
+                return;
+
             playButton.IsVisible = false;
 
-            if (!animationView.IsPlaying)
-            {
-                playButton.Source = "pause.png";
-                timerRunning = true;
-                animationView.IsPlaying = true;
-                progressSlider.IsEnabled = true;
-                StartTimer();
-            }
-            else
-            {
-                playButton.Source = "play.png";
-                timerRunning = false;
-                animationView.IsPlaying = false;
-                progressSlider.IsEnabled = false;
-            }
+            playButton.Source = "pause.png";
+            timerRunning = true;
+            animationView.IsPlaying = true;
+            StartTimer();
 
             //Temporary hack for https://github.com/xamarin/Xamarin.Forms/issues/6937
+            await Task.Delay(1);
+            playButton.IsVisible = true;
+        }
+
+        private async Task PauseAnimationAsync()
+        {
+            if (!animationView.IsPlaying)
+                return;
+
+            playButton.IsVisible = false;
+
+            playButton.Source = "play.png";
+            timerRunning = false;
+            animationView.IsPlaying = false;
+
             await Task.Delay(1);
             playButton.IsVisible = true;
         }
@@ -62,12 +77,12 @@ namespace BreatheInOut.Views
             });
         }
 
-        private void progressSlider_DragCompleted(object sender, EventArgs e)
+        private async void progressSlider_DragCompleted(object sender, EventArgs e)
         {
             if (!(sender is Slider slider))
                 return;
 
-            playButton_Clicked(sender, e);
+            await PauseAnimationAsync();
             animationProgress = (float)slider.Value;
         }
     }
