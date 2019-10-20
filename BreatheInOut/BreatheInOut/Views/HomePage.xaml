@@ -8,17 +8,19 @@
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              BackgroundColor="#7596D5">
     <ContentPage.Content>
-        <StackLayout Margin="0,20">
-            <lottie:AnimationView 
-	            x:Name="animationView" 
-	            Animation="1741-breathing-in-and-out.json" 
-	            Loop="True"
-	            VerticalOptions="FillAndExpand"
-                Margin="50,0"
-                />
-            <Slider x:Name="progressSlider" ThumbColor="White" MaximumTrackColor="Aquamarine" DragCompleted="progressSlider_DragCompleted"></Slider>
+        <ScrollView>
+            <StackLayout Margin="0,20">
+                <lottie:AnimationView 
+	                x:Name="animationView" 
+	                Animation="1741-breathing-in-and-out.json" 
+	                Loop="True"
+	                VerticalOptions="FillAndExpand"
+                    Margin="50,0"
+                    />
+                <Slider x:Name="progressSlider" ThumbColor="White" MaximumTrackColor="Aquamarine" DragCompleted="progressSlider_DragCompleted"></Slider>
 
-            <ImageButton x:Name="playButton" Source="play.png" WidthRequest="80" HeightRequest="80" BackgroundColor="Transparent" Clicked="playButton_Clicked"></ImageButton>
-        </StackLayout>
+                <ImageButton x:Name="playButton" Source="play.png" WidthRequest="80" HeightRequest="80" BackgroundColor="Transparent" Clicked="playButton_Clicked"></ImageButton>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
