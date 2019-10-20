@@ -1,8 +1,5 @@
-﻿using System;
+﻿using BreatheInOut.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using BreatheInOut.Services;
-using BreatheInOut.Views;
 
 namespace BreatheInOut
 {
@@ -12,9 +9,7 @@ namespace BreatheInOut
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new HomePage();
         }
 
         protected override void OnStart()
